@@ -8,3 +8,17 @@ section > div			{ padding: 20px; }
 header, nav, section	{ background: #eee; text-align: center; }
 footer					{ background: #eee; text-align: center; }
 nav span				{ margin: 0px 10px 0px 0px; }
+
+img 		 			{ position: absolute;
+						  top: 100px;    
+						  left: 21%;
+						  width: 150px;
+						  height: 150px;
+						  overflow: hidden; }
+
+video 		 			{ position: absolute;
+						  top: 80px;    
+						  left: 80%;
+						  width: 200px;
+						  height: 200px;
+						  overflow: hidden; }
