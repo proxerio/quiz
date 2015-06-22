@@ -9,7 +9,7 @@ exports.load = function(req, res, next, quizId) {
 				next();
 			} else { next(new Error('No existe quizId=' + quizId)); }
 		}
-	).catch(function(error) { next(error);});
+	).catch(function(error) { next(error)});
 };
 
 //GET /quizes
@@ -59,7 +59,7 @@ exports.answer = function(req, res) {
 // GET /quizes/new
 exports.new = function(req, res) {
 	var quiz = models.Quiz.build(  // crea objecto quiz
-		{pregunta: "Pregunta", respuesta: "Respuesta",}
+		{pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema"}
 	);
 
 	res.render('quizes/new', {quiz: quiz, errors: []});
@@ -72,17 +72,17 @@ exports.create = function(req, res) {
 	quiz
 	.validate()
 	.then(
-		function(err){
+	 function(err){
 			if (err) {
 				res.render('/quizes/new', {quiz: quiz, errors: err.errors});
 			} else {
 				// guarda en DB los campos pregunta y respuesta de quiz
 				quiz
-				.save({fields: ["pregunta", "respuesta"]})
-				.then(function(){ res.redirect('/quizes');})
+				.save({fields: ["pregunta", "respuesta", "tema"]})
+				.then(function(){ res.redirect('/quizes');});
 			}  // Redirección HTTP (URL relativo) lista de preguntas
 		}
-	);
+	).catch(function(error){next(error)});
 };
 
 // GET /quizes/:quizId/edit
@@ -94,7 +94,9 @@ exports.edit = function(req, res) {
 
 // PUT /quizes/:quizId
 exports.update = function(req, res) {
+ 	req.quiz.pregunta = req.body.quiz.pregunta;
  	req.quiz.respuesta = req.body.quiz.respuesta;
+ 	req.quiz.tema = req.body.quiz.tema;
 
 	req.quiz
 	.validate()
@@ -104,11 +106,11 @@ exports.update = function(req, res) {
 				res.render('/quizes/edit', {quiz: req.quiz, errors: err.errors});
 			} else {
 				req.quiz   // save: guarda campos pregunta y respuesta en DB
-				.save( {fields: ["pregunta", "respuesta"]})
-				.then( function(){ res.redirect('/quizes');})
+				.save( {fields: ["pregunta", "respuesta", "tema"]})
+				.then( function(){ res.redirect('/quizes');});
 			}  // Redirección HTTP a lista de preguntas (URL relativo)
 		}
-	);
+	).catch(function(error){next(error)});
 };
 
 // DELETE /quizes/:quizId
