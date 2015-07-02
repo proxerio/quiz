@@ -1,7 +1,5 @@
+Añadir pregunta: <p>
 
-    <p>Añadir Pregunta: </p>
-
-    <form method="post" action="/quizes/create" >
-    	<% include _form.ejs %>
-    </form>
-  
+<form method="post" action="/quizes/create" enctype="multipart/form-data">      
+  <% include _form.ejs %>
+</form>

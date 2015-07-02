@@ -1,7 +1,5 @@
+Edite la pregunta <p>
 
-    <p>Edit la Pregunta: </p>
-
-    <form method="post" action="/quizes/<%= quiz.id %>?_method=put" >
-    	<% include _form.ejs %>
-    </form>
-  
+<form method="post" action="/quizes/<%= quiz.id %>?_method=put" enctype="multipart/form-data">      
+  <% include _form.ejs %>
+</form>
